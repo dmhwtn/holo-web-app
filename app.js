@@ -1,7 +1,12 @@
 // Express
 
-let express = require('express');
-let fileUpload = require('express-fileupload');
+const express = require('express');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+const THREE = require('three');
+
+let downloadFileName = '';
+let modelInfo = [];
 
 let app = express();
 let port = process.env.PORT || 3000;
@@ -9,13 +14,9 @@ let port = process.env.PORT || 3000;
 const http = require('http').Server(app).listen(80);
 console.log("Server started...");
 
-// Path
-const path = require('path');
-
 // Store static files in public directory
 app.use(express.static(__dirname + '/public'));
-
-app.use(fileUpload());
+app.use(fileUpload()); // Use fileuploder defaults
 
 // Home
 app.get("/", (req, res) => {
@@ -23,9 +24,14 @@ app.get("/", (req, res) => {
 });
 
 // Test download geometry
-app.get('/download', (req, res) => {
-  let file = __dirname + '/test-geometry/box.obj';
+app.get('/downloadmesh', (req, res) => {
+  let file = __dirname + downloadFileName;
   res.download(file);
+});
+
+// Test download geometry
+app.get('/downloadinfo', (req, res) => {
+  res.send(modelInfo);
 });
 
 // File Upload
@@ -33,16 +39,34 @@ app.post('/', (req, res) => {
   if(!req.files)
     return res.status(400).send('No files were uploaded.');
 
-    let sampleFile = req.files.model;
-    let fileName = req.files.model.name;
+  // Get model mesh
+    let modelMesh = req.files.modelMesh;
+    let meshName = req.files.modelMesh.name;
 
-  sampleFile.mv('uploads/' + fileName, (error) => {
+  modelMesh.mv('uploads/' + meshName, (error) => {
     if (error) {
       return res.status(500).send(error);
 
       res.send('File uploaded!');
       }
-    })
+    });
+
+
+    // Get model information
+
+    // Model name
+    let modelName = req.body.modelName;
+    // Model date
+    let modelDate = req.body.modelDate;
+    // Model author
+    let modelAuthor = req.body.modelAuthor;
+    // Model comments
+    let modelComments = req.body.modelComments;
+    // Model information array
+    modelInfo = [modelName, modelDate, modelAuthor, modelComments]
+
+    downloadFileName = meshName;
+    res.sendFile(__dirname + '/index.html');
   });
 
 

@@ -4,3 +4,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 #instruction-title{ align-content: center; }
 #instructions-body{ text}
+
+.inputClass {
+  text-align: center;
+  line-height: 20px;
+}
+
+#fileUploadBtn {
+  text-align: center;
+  line-height: 20px;
+}
