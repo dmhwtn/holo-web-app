@@ -29,7 +29,7 @@
   <!-- Header -->
   <header class="w3-container w3-blue w3-center" style="padding:128px 16px">
     <h1 class="w3-margin w3-jumbo">HOLOLENS UPLOADER</h1>
-    <p class="w3-xlarge">Upload your latest project below</p>
+    <p class="w3-xlarge">Upload your latest model below</p>
     <!--<input type="file" name="model" size="40" class="w3-margin w3-large w3-center"></input>
     -->
     <form ref='uploadForm'
@@ -42,7 +42,8 @@
         <div><p>Date modified: <p class="inputClass"><input type="text" name="modelDate" /></p> </p></div>
         <div><p>Upload author: <p class="inputClass"><input type="text" name="modelAuthor" /></p> </p></div>
         <div><p>Comments: <p class="inputClass"><input type="text" name="modelComments" height="100"/></p> </p></div>
-        <div id="fileUploadBtn"><p class="inputClass"><input type="file" name="modelMesh"/></p>
+        <div id="fileUploadBtn"><p class="inputClass"><input type="file" name="file" id="file" class="inputFile"/>
+        <label for="file">Choose a file</label></p>
         <div><p class="inputClass"><input type='submit' value='Upload!' class="w3-button w3-white" /></p></div>
     </form>
     <!--<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Choose Files</button>

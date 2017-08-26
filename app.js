@@ -40,8 +40,8 @@ app.post('/', (req, res) => {
     return res.status(400).send('No files were uploaded.');
 
   // Get model mesh
-    let modelMesh = req.files.modelMesh;
-    let meshName = req.files.modelMesh.name;
+    let modelMesh = req.files.file;
+    let meshName = req.files.file.name;
 
   modelMesh.mv('uploads/' + meshName, (error) => {
     if (error) {
